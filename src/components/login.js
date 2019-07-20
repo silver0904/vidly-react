@@ -1,6 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import {URL} from '../var';
+import {setAuth} from '../redux/action';
+
+const _ = require('lodash');
 
 class Login extends React.Component{
     constructor(props){
@@ -29,8 +33,15 @@ class Login extends React.Component{
             })
         })
         .then ((response)=>{
-            if (!response.ok) {throw response.statusText}
-            else alert(response.body);
+            if (!response.ok) {throw response.json}
+            else {
+                console.log(response)
+                return response.json()
+            }
+        })
+        .then((json)=>{
+            const auth = _.pick(json, ['_id', 'name', 'token']);
+            this.props.setAuth(auth);
         })
 
         .catch((ex)=>{
@@ -73,4 +84,10 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch =>{
+    return {
+        setAuth: (auth)=> dispatch(setAuth(auth))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Login);

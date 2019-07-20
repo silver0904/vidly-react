@@ -1,6 +1,6 @@
 const Auth = (state={}, action)=>{
     switch(action.type){
-        case 'LOGIN':
+        case 'SET_AUTH':
             return{
                 ...state,
                 _id: action._id,
