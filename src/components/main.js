@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Header from './header'
 import Home from './home';
-import Login from './login';
+import Genre from './genre';
+import Movie from './movie';
 // import Menu from './MenuComponent';
 // import Contact from './ContactComponent';
 // import About from './AboutComponent'
@@ -15,29 +16,23 @@ const mapStateToProps = state=>{
     return{
         auth: state.Auth
     }
-
 }
 class Main extends Component {
 
   constructor(props) {
     super(props);
   }
-checkLogin= ()=>{
-    // if (!this.props.auth.token){
-    //     return <Redirect to="/login"/>
-    // }
-    // else
-    //     return <Redirect to="./home"/>
-}
+
 
   render() {
     return (
       <div>
-        {this.checkLogin()}
+        {<Redirect to='/home'/>}
         <Header/>
         <Switch>
             <Route path="/home" component={Home} />
-            <Route path="/login" component={Login}/>
+            <Route path="/genre" component={Genre} />
+            <Route path="/movie" component={Movie} />
         </Switch> 
         {/* <Footer/>*/}
       </div>

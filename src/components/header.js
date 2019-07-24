@@ -41,37 +41,12 @@ class Header extends Component{
         return(
             <React.Fragment>
                 {/* this is the login modal */}
-                <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-                    <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
-                    <ModalBody>
-                    <Form onSubmit={this.handleLogin}>
-                            <FormGroup>
-                                <Label htmlFor="username">Username</Label>
-                                <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input}  />
-                            </FormGroup>
-                            <FormGroup check>
-                                <Label check>
-                                    <Input type="checkbox" name="remember"
-                                    innerRef={(input) => this.remember = input}  />
-                                    Remember me
-                                </Label>
-                            </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Login</Button>
-                        </Form>
-                    </ModalBody>
-                </Modal>
 
                 <Navbar dark expand="md">
                     <div className="container">
                     <NavbarToggler onClick={this.toggleNav}/>
                     <NavbarBrand className="mr-auto" href="/">
-                        <img src="assests/images/logo.png" height ="30" width="41"
+                        <img src="../assets/images/logo.png" height ="30" width="41"
                         alt ="Vidly Movie Rental"/>
                     </NavbarBrand>
                     <Collapse isOpen={this.state.isNavOpen} navbar>
@@ -82,19 +57,14 @@ class Header extends Component{
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to="/aboutus">
-                                    <span >About Us</span>
+                                <NavLink className="nav-link" to="/genre">
+                                    <span >Genre</span>
                                 </NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link" to="/menu">
-                                    <span >Menu</span>
+                                <NavLink className="nav-link" to="/movie">
+                                    <span >Movie</span>
                                 </NavLink>    
-                            </NavItem>
-                            <NavItem>
-                                <NavLink className="nav-link" to="/contractus">
-                                    <span >Contract Us</span>
-                                </NavLink>
                             </NavItem>
                         </Nav>
 

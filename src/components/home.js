@@ -1,17 +1,20 @@
-import React from 'react'
+import React from 'react';
+import {connect} from 'react-redux';
 
 class Home extends React.Component{
     constructor(props){
-        super(props)
+        super(props);
     }
 
     render(){
         return(
-
-                <h1>Hello World</h1>
-
+            <h1>Hello {this.props.name}</h1>
         )
     }
 }
-
-export default Home;
+const mapStateToProps = state=>{
+    return{
+        name: state.Auth.name
+    }
+}
+export default connect(mapStateToProps)(Home);

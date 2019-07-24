@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import {Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import {URL} from '../var';
 import {setAuth} from '../redux/action';
+import {Redirect , Route, withRouter} from 'react-router-dom';
+import Main from './main';
 
 const _ = require('lodash');
 
@@ -11,13 +13,11 @@ class Login extends React.Component{
         super(props);
         this.state= {
             email:"",
-            password:"",
-            errorLog:[]
+            password:""
         }
-        
     }
 
-    handleLogin = event=> {
+    handleLogin = (event) =>{
         event.preventDefault();
         var queryURL = URL + "api/auth";
         return fetch(queryURL, {
@@ -33,7 +33,7 @@ class Login extends React.Component{
             })
         })
         .then ((response)=>{
-            if (!response.ok) {throw response.json}
+            if (!response.ok) {throw response}
             else {
                 console.log(response)
                 return response.json()
@@ -43,14 +43,9 @@ class Login extends React.Component{
             const auth = _.pick(json, ['_id', 'name', 'token']);
             this.props.setAuth(auth);
         })
-
         .catch((ex)=>{
-            alert(ex);
+            alert(ex.statusText);
         })
-        
-        
-        
-        
     }
 
     handleChange = event =>{   
@@ -60,9 +55,19 @@ class Login extends React.Component{
         
     };
 
+    redirectMain(){
+        if (this.props.Auth.token !== ""){
+            console.log("hi");
+            return <Redirect to="/main"/>
+        }
+    }
+
     render(){
         return(
             <div className="container">
+                <h1>Vidly Movie Rental</h1>
+                <Route path="/main" component={Main}/>
+                {this.redirectMain()}
                 <Form onSubmit={this.handleLogin}>
                     <FormGroup>
                         <Label htmlFor="email">Email</Label>
@@ -79,6 +84,7 @@ class Login extends React.Component{
                     <a>{this.state.errorLog}</a>
                     <Button type="submit" value="submit" color="primary">Login</Button>   
                 </Form>
+
             </div>
         )
     }
@@ -90,4 +96,10 @@ const mapDispatchToProps = dispatch =>{
     }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = state=> {
+    return {
+        Auth : state.Auth
+    }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
